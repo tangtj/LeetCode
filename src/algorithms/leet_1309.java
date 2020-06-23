@@ -35,37 +35,22 @@ public class leet_1309 {
 
     public String freqAlphabets(String s) {
         char[] c = s.toCharArray();
-        char[] temp = new char[3];
-        StringBuilder result = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < c.length; i++) {
+            if (i + 2 < c.length && c[i+2] == '#'){
 
-        int times = 0;
-        for (char cc : c) {
-            temp[times] = cc;
-            if (times == 2 && cc == '#') {
-                String key = "" + temp[0] + temp[1] + temp[2];
-                result.append(map.get(key));
-                times = 0;
-                continue;
-            } else if (times == 2) {
-                result.append(map.get(""+temp[0]))
-                        .append(map.get(""+temp[1]));
-
-                temp[0] = temp[2];
-                times=1;
-                continue;
-            }
-            times++;
-        }
-        if (times != 0){
-            for (int i = 0; i < times; i++) {
-                result.append(map.get(""+temp[i]));
+                char d = (char)((c[i]-'0')*10 + c[i+1]-'0'  - 1 +'a');
+                i+=2;
+                sb.append( d);
+            }else {
+                sb.append((char)(c[i] -'0' - 1 + 'a'));
             }
         }
-        return result.toString();
+        return sb.toString();
     }
 
     public static void main(String[] args) {
         var a = new leet_1309();
-        a.freqAlphabets("12345678910#11#12#13#14#15#16#17#18#19#20#21#22#23#24#25#26#");
+        a.freqAlphabets("10#11#12");
     }
 }
